@@ -31,3 +31,8 @@ brew install lcov
 brew install gcovr
 brew install ccache
 ```
+
+## To build only library and not the executable use the following 
+```sh
+cmake --build . --target Library
+```
