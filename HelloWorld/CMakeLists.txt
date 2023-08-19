@@ -16,7 +16,26 @@ project(
     VERSION 1.0.0 
     LANGUAGES C CXX)
 
+# Setting the Cpp Standard
+set(CMAKE_CXX_STANDARD 17)
+# 
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# 
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Using option to turn things on and off
+option(COMPILE_EXECUTABLE "whether to compile the executable")
+
+# Creating variable
+set(LIBRARY_NAME Library)
+set(EXECUTABLE_NAME Executable)
+
+# Adding folder to the project
 add_subdirectory(src)
-add_subdirectory(app)
+if(COMPILE_EXECUTABLE)
+    add_subdirectory(app)
+else()
+    message("W/o exe. compiling")
+endif()
 
 
