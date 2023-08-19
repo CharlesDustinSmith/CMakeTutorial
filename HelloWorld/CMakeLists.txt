@@ -16,13 +16,7 @@ project(
     VERSION 1.0.0 
     LANGUAGES C CXX)
 
-# Creating a target that is not an executable (A.K.A a library)
-add_library(Library STATIC my_lib.cpp)
-
-# To compile the source file into an executable (A Target)
-add_executable(Executable main.cpp)
-
-# Linking the libraries with the executable
-target_link_libraries(Executable PUBLIC Library)
+add_subdirectory(src)
+add_subdirectory(app)
 
 

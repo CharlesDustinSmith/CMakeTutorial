@@ -6,7 +6,7 @@ cmake -S . -B build
 cmake --build ./build
 
 # Change directory to build directory
-cd build
+cd build/app
 # Running the executable
 ./Executable
 
