@@ -1,2 +1,2 @@
 prepare: 
-	rm -rf build 
+	rmdir /S /Q build 
