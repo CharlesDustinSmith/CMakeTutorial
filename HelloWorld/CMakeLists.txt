@@ -30,6 +30,14 @@ option(COMPILE_EXECUTABLE "whether to compile the executable" OFF)
 set(LIBRARY_NAME Library)
 set(EXECUTABLE_NAME Executable)
 
+# Setting the cmake module files that have the function in them
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+# adding the cmake module file (Adding the function)
+include(AddGitSubmodule)
+# Calling the function
+add_git_submodule(external/json)
+
+
 # Adding folder to the project
 add_subdirectory(configured)
 add_subdirectory(src)

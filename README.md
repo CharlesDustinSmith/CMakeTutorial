@@ -37,4 +37,7 @@ brew install ccache
 cmake --build . --target Library
 ```
 
-## Make sure loock
+## To add submodules to the project 
+```sh
+git submodule add git@github.com:nlohmann/json.git external/json
+```

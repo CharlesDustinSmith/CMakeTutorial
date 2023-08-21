@@ -1,0 +1,3 @@
+[submodule "HelloWorld/external/json"]
+	path = HelloWorld/external/json
+	url = git@github.com:nlohmann/json.git
