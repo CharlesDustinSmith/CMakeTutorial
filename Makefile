@@ -1,17 +1,35 @@
-ifeq ($(shell uname), Linux)
-    # Linux-specific command
-    prepare: 
-		rm -rf build 
-else ifeq ($(shell uname), Darwin)
-    # macOS-specific command
-    prepare: 
-		rm -rf build 
-else ifeq ($(shell uname), Windows_NT)
-    # Windows-specific command
-    prepare: 
-		rmdir /S /Q build 
-else
-    $(error Unsupported operating system: $(shell uname))
-endif
+# Windows-specific command
+prepare_win:
+	echo "REMOVING BUILD DIRECTORY"
+	rmdir /S /Q build
+	echo "DONE"
+	echo "Changing directory to HelloWorld"
+	cd HelloWorld
+	echo "Removing build directory"
+	rmdir /S /Q build
+	echo "Changing directory back out of HelloWorld"
+	cd ../
 
+# Linux-specific command
+prepare_lin:
+	echo "REMOVING BUILD DIRECTORY"
+	rm -rf build
+	echo "DONE"
+	echo "Changing directory to HelloWorld"
+	cd HelloWorld
+	echo "Removing build directory"
+	rm -rf build
+	echo "Changing directory back out of HelloWorld"
+	cd ../
 
+# macOS-specific command
+prepare_mac:
+	echo "REMOVING BUILD DIRECTORY"
+	rm -rf build
+	echo "DONE"
+	echo "Changing directory to HelloWorld"
+	cd HelloWorld
+	echo "Removing build directory"
+	rm -rf build
+	echo "Changing directory back out of HelloWorld"
+	cd ../

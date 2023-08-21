@@ -40,6 +40,7 @@ add_git_submodule(external/json)
 
 # Adding folder to the project
 add_subdirectory(configured)
+add_subdirectory(external)
 add_subdirectory(src)
 if(COMPILE_EXECUTABLE)
     add_subdirectory(app)
