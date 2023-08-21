@@ -41,3 +41,12 @@ cmake --build . --target Library
 ```sh
 git submodule add git@github.com:nlohmann/json.git external/json
 ```
+
+## To generate Doxygen file
+```sh
+doxygen -g
+```
+## Then to generate the html 
+```sh
+cd docs && doxygen
+```

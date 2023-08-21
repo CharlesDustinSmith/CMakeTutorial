@@ -37,7 +37,10 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Calling the function
 # add_git_submodule(external/json)
 
-# including FetchContent to get the content of a cmake file (Just another way to do the above command)
+# Including custom target that is in the cmake folder (Docs.cmake)
+include(Docs)
+
+# Including FetchContent to get the content of a cmake file (Just another way to do the above command)
 include(FetchContent)
 # Cloning the repo into our build directory (This only works for repos that are cmake projects) {First parameter -> project name, 
 # Second parameter -> Git repo, Third parameter -> is the tag in the repo, Fourth parameter -> so that repo does not clone recursively}
