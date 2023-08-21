@@ -27,6 +27,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 option(COMPILE_EXECUTABLE "whether to compile the executable" OFF)
 # Option to enable testing
 option(ENABLE_TESTING "Enable a unit testing build" ON)
+# Option to enable warnings
+option(ENABLE_WARNINGS "Enable a ")
+option(ENABLE_WARNINGS_AS_ERRORs "Enable a ")
 
 # Creating variable
 set(LIBRARY_NAME Library)
