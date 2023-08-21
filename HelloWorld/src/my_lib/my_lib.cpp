@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdint>
 
 #include <cxxopts.hpp>
 #include <fmt/format.h>
@@ -32,4 +33,15 @@ void print_hello_world()
         SPDLOG_VER_MAJOR << "." <<
         SPDLOG_VER_MINOR << "." <<
         SPDLOG_VER_PATCH << std::endl;
+}
+
+/**
+ * @brief This function performs factorial as the name implies
+ * 
+ * @param number 
+ * @return unsigned int 
+ */
+unsigned int factorial( uint32_t number ) 
+{
+    return number <= 1 ? 1 : factorial(number-1)*number;
 }

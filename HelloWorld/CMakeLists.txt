@@ -25,6 +25,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Using option to turn things on and off
 option(COMPILE_EXECUTABLE "whether to compile the executable" OFF)
+# Option to enable testing
+option(ENABLE_TESTING "Enable a unit testing build" ON)
 
 # Creating variable
 set(LIBRARY_NAME Library)
@@ -94,4 +96,4 @@ if(COMPILE_EXECUTABLE)
 else()
     message("W/o exe. compiling")
 endif()
-
+add_subdirectory(tests)
