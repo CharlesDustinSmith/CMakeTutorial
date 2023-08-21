@@ -18,24 +18,26 @@ project(
 
 # Setting the Cpp Standard
 set(CMAKE_CXX_STANDARD 17)
-# 
+# The CMAKE_CXX_STANDARD_REQUIRED variable controls whether the specified C++ standard version must be strictly adhered to.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# 
+# The CMAKE_CXX_EXTENSIONS variable controls whether compiler-specific extensions are enabled when using a particular C++ standard
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Using option to turn things on and off
-option(COMPILE_EXECUTABLE "whether to compile the executable")
+option(COMPILE_EXECUTABLE "whether to compile the executable" OFF)
 
 # Creating variable
 set(LIBRARY_NAME Library)
 set(EXECUTABLE_NAME Executable)
 
 # Adding folder to the project
+add_subdirectory(configured)
 add_subdirectory(src)
 if(COMPILE_EXECUTABLE)
     add_subdirectory(app)
 else()
     message("W/o exe. compiling")
 endif()
+
 
 
