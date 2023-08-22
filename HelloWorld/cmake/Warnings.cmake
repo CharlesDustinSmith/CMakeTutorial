@@ -30,6 +30,7 @@ function(target_set_warnings TARGET ENABLED ENABLED_AS_ERRORS)
         set(WARNINGS ${GCC_WARNINGS})
     endif()
 
+    # Adds compiler options for a certain target
     target_compile_options(${TARGET} PRIVATE ${WARNINGS})
     message(STATUS ${WARNINGS})
 

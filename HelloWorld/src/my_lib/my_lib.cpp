@@ -16,8 +16,6 @@ void print_hello_world()
 {
     std::cout << "Hello World.\n" << std::endl;
 
-    int i;
-
     std::cout << "JSON Lib Version: " << 
         NLOHMANN_JSON_VERSION_MAJOR << "." <<
         NLOHMANN_JSON_VERSION_MINOR << "." <<

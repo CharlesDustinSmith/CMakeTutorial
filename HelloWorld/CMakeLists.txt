@@ -26,10 +26,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Using option to turn things on and off
 option(COMPILE_EXECUTABLE "whether to compile the executable" ON)
 # Option to enable testing
-option(ENABLE_TESTING "Enable a unit testing build" ON)
+option(ENABLE_TESTING "Enable a unit testing build" OFF)
 # Option to enable warnings
-option(ENABLE_WARNINGS "Enable warnings" ON)
+option(ENABLE_WARNINGS "Enable warnings" OFF)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable warnings as errors" OFF)
+# Option to enable sanitizers
+option(ENABLE_SANITIZE_ADDR "Enable Address Sanitizer" ON)
+option(ENABLE_SANITIZE_UNDEF "Enable Undefind Sanitizer" OFF)
 
 # Creating variable
 set(LIBRARY_NAME Library)
@@ -45,9 +48,15 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Including custom target that is in the cmake folder (Docs.cmake)
 include(Docs)
 
-# 
+# Include curstom target that enables compiler warnings
 if(${ENABLE_WARNINGS})
     include(Warnings)
+endif()
+
+# Adding compiler sanitizers for the project
+if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
+    include(Sanitizers)
+    add_sanitizer_flags()
 endif()
 
 # Including FetchContent to get the content of a cmake file (Just another way to do the above command)
