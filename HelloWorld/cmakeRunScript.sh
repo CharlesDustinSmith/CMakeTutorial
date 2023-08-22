@@ -5,6 +5,9 @@ cmake -S . \
 -B build \
 -DCOMPILE_EXECUTABLE=ON \
 -DCMAKE_BUILD_TYPE=Debug \
+-DENABLE_WARNINGS=ON \
+-DENABLE_TESTING=ON \
+-DENABLE_WARNINGS_AS_ERRORS=ON \
 -G "Unix Makefiles"
 
 # Compiling the project

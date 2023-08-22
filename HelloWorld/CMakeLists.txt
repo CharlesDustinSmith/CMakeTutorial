@@ -24,12 +24,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Using option to turn things on and off
-option(COMPILE_EXECUTABLE "whether to compile the executable" OFF)
+option(COMPILE_EXECUTABLE "whether to compile the executable" ON)
 # Option to enable testing
 option(ENABLE_TESTING "Enable a unit testing build" ON)
 # Option to enable warnings
-option(ENABLE_WARNINGS "Enable a ")
-option(ENABLE_WARNINGS_AS_ERRORs "Enable a ")
+option(ENABLE_WARNINGS "Enable warnings" ON)
+option(ENABLE_WARNINGS_AS_ERRORS "Enable warnings as errors" OFF)
 
 # Creating variable
 set(LIBRARY_NAME Library)
@@ -44,6 +44,11 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 # Including custom target that is in the cmake folder (Docs.cmake)
 include(Docs)
+
+# 
+if(${ENABLE_WARNINGS})
+    include(Warnings)
+endif()
 
 # Including FetchContent to get the content of a cmake file (Just another way to do the above command)
 include(FetchContent)
