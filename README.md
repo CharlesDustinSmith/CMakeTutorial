@@ -50,3 +50,8 @@ doxygen -g
 ```sh
 cd docs && doxygen
 ```
+
+## Tools for adding exbternal Libraries
+- CPM (CMake Package Manager)
+- Conan
+- VCPKG
