@@ -1,6 +1,6 @@
 function(target_set_warnings TARGET ENABLED ENABLED_AS_ERRORS)
     if (NOT ${ENABLED})
-        message(STATUS "Warnings Disabled for: ${TARGET}")
+        message(STATUS "Warnings Disabled for: ${TARGET}.")
         return()
     endif()
 

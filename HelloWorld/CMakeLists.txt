@@ -36,6 +36,8 @@ option(ENABLE_SANITIZE_ADDR "Enable Address Sanitizer" ON)
 option(ENABLE_SANITIZE_UNDEF "Enable Undefind Sanitizer" OFF)
 # Option to enable LTO
 option(ENABLE_LTO "Enable LTO" ON)
+# Option to enable CPM (CMake Package Manager)
+option(USE_CPM "Whether to use CPM or not" ON)
 
 
 # Creating variable
@@ -51,67 +53,76 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 # Including custom target that is in the cmake folder (Docs.cmake)
 include(Docs)
-
 # Include curstom target that enables compiler warnings
 if(ENABLE_WARNINGS)
     include(Warnings)
 endif()
-
 # Adding compiler sanitizers for the project
 if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
     include(Sanitizers)
     add_sanitizer_flags()
 endif()
-
 # Adding compiler LTO for the project
 if(ENABLE_LTO)
     include(LTO)
 endif()
-
 # Including FetchContent to get the content of a cmake file (Just another way to do the above command)
 include(FetchContent)
-# Cloning the repo into our build directory (This only works for repos that are cmake projects) {First parameter -> project name, 
-# Second parameter -> Git repo, Third parameter -> is the tag in the repo, Fourth parameter -> so that repo does not clone recursively}
-FetchContent_Declare(
-    nlohmann_json
-    GIT_REPOSITORY git@github.com:nlohmann/json.git
-    GIT_TAG v3.11.2
-    GIT_SHALLOW TRUE
-)
-# Will load the library into our cmake project
-FetchContent_MakeAvailable(nlohmann_json)
-# Adding more exterenal libraries (string formatting library)
-FetchContent_Declare(
-    fmt
-    GIT_REPOSITORY git@github.com:fmtlib/fmt.git
-    GIT_TAG 10.1.0
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(fmt)
-# Adding more exterenal libraries (logging library)
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY git@github.com:gabime/spdlog.git
-    GIT_TAG v1.12.0
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(spdlog)
-# Adding more exterenal libraries (An argument parser library)
-FetchContent_Declare(
-    cxxopts
-    GIT_REPOSITORY git@github.com:jarro2783/cxxopts.git
-    GIT_TAG v3.1.1
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(cxxopts)
-# Adding more exterenal libraries (Unit testing library)
-FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY git@github.com:catchorg/Catch2.git
-    GIT_TAG v2.13.9
-    GIT_SHALLOW TRUE
-)
-FetchContent_MakeAvailable(Catch2)
+# Including the CPM for package management
+if(USE_CPM)
+    message(STATUS "Using CPM.")
+    include(CPM)
+    # Adding package using the cpm command. Only works for packages that are cmake project.
+    cpmaddpackage("gh:nlohmann/json#v3.11.2")
+    cpmaddpackage("gh:fmtlib/fmt#10.1.0")
+    cpmaddpackage("gh:gabime/spdlog#v1.12.0")
+    cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
+    cpmaddpackage("gh:catchorg/Catch2#v2.13.9")
+else()
+    message(STATUS "Using FetchContent.")
+    # Cloning the repo into our build directory (This only works for repos that are cmake projects) {First parameter -> project name, 
+    # Second parameter -> Git repo, Third parameter -> is the tag in the repo, Fourth parameter -> so that repo does not clone recursively}
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY git@github.com:nlohmann/json.git
+        GIT_TAG v3.11.2
+        GIT_SHALLOW TRUE
+    )
+    # Will load the library into our cmake project
+    FetchContent_MakeAvailable(nlohmann_json)
+    # Adding more exterenal libraries (string formatting library)
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY git@github.com:fmtlib/fmt.git
+        GIT_TAG 10.1.0
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(fmt)
+    # Adding more exterenal libraries (logging library)
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY git@github.com:gabime/spdlog.git
+        GIT_TAG v1.12.0
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(spdlog)
+    # Adding more exterenal libraries (An argument parser library)
+    FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY git@github.com:jarro2783/cxxopts.git
+        GIT_TAG v3.1.1
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(cxxopts)
+    # Adding more exterenal libraries (Unit testing library)
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY git@github.com:catchorg/Catch2.git
+        GIT_TAG v2.13.9
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(Catch2)
+endif()
 
 # Adding folder to the project 
 add_subdirectory(configured)
@@ -120,6 +131,6 @@ add_subdirectory(src)
 if(COMPILE_EXECUTABLE)
     add_subdirectory(app)
 else()
-    message("W/o exe. compiling")
+    message("W/o exe. compiling.")
 endif()
 add_subdirectory(tests)
