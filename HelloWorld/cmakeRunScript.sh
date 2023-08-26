@@ -10,7 +10,7 @@ cmake -S . \
 -DENABLE_WARNINGS_AS_ERRORS=OFF \
 -DENABLE_SANITIZE_ADDR=OFF \
 -DENABLE_SANITIZE_UNDEF=OFF \
--DUSE_CPM=ON \
+-DUSE_CPM=OFF \
 -G "Unix Makefiles"
 
 # Compiling the project

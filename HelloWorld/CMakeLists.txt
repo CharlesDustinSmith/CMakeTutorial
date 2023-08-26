@@ -37,8 +37,9 @@ option(ENABLE_SANITIZE_UNDEF "Enable Undefind Sanitizer" OFF)
 # Option to enable LTO
 option(ENABLE_LTO "Enable LTO" ON)
 # Option to enable CPM (CMake Package Manager)
-option(USE_CPM "Whether to use CPM or not" ON)
-
+option(USE_CPM "Whether to use CPM or not" OFF)
+# Option to enable Conan (Conan Package Manager)
+option(USE_CONAN "Whether to use Conan or not" ON)
 
 # Creating variable
 set(LIBRARY_NAME Library)
@@ -78,6 +79,14 @@ if(USE_CPM)
     cpmaddpackage("gh:gabime/spdlog#v1.12.0")
     cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
     cpmaddpackage("gh:catchorg/Catch2#v2.13.9")
+elseif(USE_CONAN)
+    message(STATUS "Using Conan")
+    include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
+    find_package(nlohmann_json REQUIRED)
+    find_package(fmt REQUIRED)
+    find_package(spdlog REQUIRED)
+    find_package(cxxopts REQUIRED)
+    find_package(Catch2 REQUIRED)
 else()
     message(STATUS "Using FetchContent.")
     # Cloning the repo into our build directory (This only works for repos that are cmake projects) {First parameter -> project name, 
