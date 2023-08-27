@@ -39,7 +39,9 @@ option(ENABLE_LTO "Enable LTO" ON)
 # Option to enable CPM (CMake Package Manager)
 option(USE_CPM "Whether to use CPM or not" OFF)
 # Option to enable Conan (Conan Package Manager)
-option(USE_CONAN "Whether to use Conan or not" ON)
+option(USE_CONAN "Whether to use Conan or not" OFF)
+# Option to enable Vcpkg (Microsoft Package Manager)
+option(USE_VCPKG "Whether to use VCPKG or not" ON)
 
 # Creating variable
 set(LIBRARY_NAME Library)
@@ -69,9 +71,10 @@ if(ENABLE_LTO)
 endif()
 # Including FetchContent to get the content of a cmake file (Just another way to do the above command)
 include(FetchContent)
-# Including the CPM for package management
+
 if(USE_CPM)
     message(STATUS "Using CPM.")
+    # Including the CPM for package management
     include(CPM)
     # Adding package using the cpm command. Only works for packages that are cmake project.
     cpmaddpackage("gh:nlohmann/json#v3.11.2")
@@ -81,7 +84,17 @@ if(USE_CPM)
     cpmaddpackage("gh:catchorg/Catch2#v2.13.9")
 elseif(USE_CONAN)
     message(STATUS "Using Conan")
+    # Including the Conan for package management
     include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
+    find_package(nlohmann_json REQUIRED)
+    find_package(fmt REQUIRED)
+    find_package(spdlog REQUIRED)
+    find_package(cxxopts REQUIRED)
+    find_package(Catch2 REQUIRED)
+elseif(USE_VCPKG)
+    message(STATUS "Using VCPKG")
+    # Including the VCPKG for package management
+    include(/home/charlessmith/vcpkg/scripts/buildsystems/vcpkg.cmake)
     find_package(nlohmann_json REQUIRED)
     find_package(fmt REQUIRED)
     find_package(spdlog REQUIRED)

@@ -11,6 +11,8 @@ cmake -S . \
 -DENABLE_SANITIZE_ADDR=OFF \
 -DENABLE_SANITIZE_UNDEF=OFF \
 -DUSE_CPM=OFF \
+-DUSE_CONAN=OFF \
+-DUSE_VCPKG=ON \
 -G "Unix Makefiles"
 
 # Compiling the project

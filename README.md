@@ -81,3 +81,65 @@ git clone https://github.com/Microsoft/vcpkg.git
 .\vcpkg\bootstrap-vcpkg.bat # windows
 ./vcpkg/bootstrap-vcpkg.sh # Unix
 ```
+## Explaining vcpkg.json 
+```json
+{
+    // Project Name
+    "name": "cpptemplateproject",
+    // Project Version
+    "version-string": "1.0.0",
+    // Project dependencies
+    "dependencies": [
+        {
+            "name": "cxxopts",
+            // Version meaning greater than or equal to version 3.1.1 (3.1.1 is the is minimum version), Will basically install the newest version of the package
+            "version>=": "3.1.1"
+        },
+        {
+            "name": "fmt",
+            "version>=": "10.1.0"
+        },
+        {
+            "name": "nlohmann-json",
+            "version>=": "3.11.2"
+        },
+        {
+            "name": "spdlog",
+            "version>=": "1.12.0"
+        },
+        {
+            "name": "catch2",
+            "version>=": "2.13.9"
+        }
+    ],
+    // This is so that you can use a specific version of the package.
+    "overrides": [
+        {
+            "name": "catch2",
+            "version": "2.13.9"
+        }
+    ],
+    // This is the commit number for vcpkg that you want to be used, ensure every user uses the same commit for vcpkg
+    "builtin-baseline": "436a061a544c124200200517b9ee55c5bb1b7a26"
+}
+
+```
+## To install the vcpkg packages using the vcpkg.json 
+1. Install vcpkg
+2. Add toolchain to the cmake project and find the packages
+    - ```txt
+        include(/home/charlessmith/vcpkg/scripts/buildsystems/vcpkg.cmake)
+        find_package(nlohmann_json REQUIRED)
+        find_package(fmt REQUIRED)
+        find_package(spdlog REQUIRED)
+        find_package(cxxopts REQUIRED)
+        find_package(Catch2 REQUIRED)
+    ```
+3. Install from the json file 
+    - ```sh
+        vcpkg install 
+    ```
+4. Build the cmake project 
+    - ```sh
+        ./cmakeRunScript.sh
+    ```
