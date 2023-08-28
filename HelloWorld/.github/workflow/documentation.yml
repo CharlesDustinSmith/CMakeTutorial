@@ -19,7 +19,7 @@ jobs:
         pip install jinja2 Pygments
     - name: prepare
       run: |
-        make prepare
+        make prepare_lin
     - name: configure
       run: |
         cmake -H. -Bbuild -G "Unix Makefiles" -DCMAKE_BUILD_TYPE="Debug"
