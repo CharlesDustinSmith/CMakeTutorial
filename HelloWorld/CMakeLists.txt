@@ -32,8 +32,10 @@ option(ENABLE_TESTING "Enable a unit testing build" ON)
 option(ENABLE_WARNINGS "Enable warnings" ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable warnings as errors" OFF)
 # Option to enable sanitizers
-option(ENABLE_SANITIZE_ADDR "Enable Address Sanitizer" ON)
-option(ENABLE_SANITIZE_UNDEF "Enable Undefind Sanitizer" OFF)
+option(ENABLE_SANITIZE_ADDR "Enable address sanitize." OFF)
+option(ENABLE_SANITIZE_UNDEF "Enable undefined sanitize." OFF)
+option(ENABLE_SANITIZE_LEAK "Enable leak sanitize (Gcc/Clang only)." OFF)
+option(ENABLE_SANITIZE_THREAD "Enable thread sanitize (Gcc/Clang only)." OFF)
 # Option to enable LTO
 option(ENABLE_LTO "Enable LTO" ON)
 # Option to enable CPM (CMake Package Manager)
@@ -42,6 +44,13 @@ option(USE_CPM "Whether to use CPM or not" OFF)
 option(USE_CONAN "Whether to use Conan or not" OFF)
 # Option to enable Vcpkg (Microsoft Package Manager)
 option(USE_VCPKG "Whether to use VCPKG or not" ON)
+# Option to enable code coverage
+option(ENABLE_COVERAGE "Enable a Code Coverage build." OFF)
+# Option to enable clang tidy
+option(ENABLE_CLANG_TIDY "Enable to add clang tidy." ON)
+# Option to enable clang and cmake format 
+option(ENABLE_CLANG_FORMAT "Enable to add clang-format." ON)
+option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
 
 # Creating variable
 set(LIBRARY_NAME Library)
@@ -56,14 +65,25 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 # Including custom target that is in the cmake folder (Docs.cmake)
 include(Docs)
+# Including Safe guards for cmake 
+include(ConfigSafeGuards)
+# Include tools for clang-tidy and etc
+include(Tools)
+add_cmake_format_target()
+add_clang_format_target()
 # Include curstom target that enables compiler warnings
 if(ENABLE_WARNINGS)
     include(Warnings)
 endif()
 # Adding compiler sanitizers for the project
 if(ENABLE_SANITIZE_ADDR OR ENABLE_SANITIZE_UNDEF)
-    include(Sanitizers)
+    include(Sanitizer)
     add_sanitizer_flags()
+endif()
+# Enabling code coverage
+if(ENABLE_COVERAGE)
+    include(CodeCoverage)
+    append_coverage_compiler_flags()
 endif()
 # Adding compiler LTO for the project
 if(ENABLE_LTO)
