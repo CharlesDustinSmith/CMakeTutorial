@@ -301,3 +301,8 @@ It's included in the LLVM toolchain, but also installable by apt, brew, winget e
 
 https://github.com/llvm/llvm-project/releases/tag/llvmorg-16.0.0
 
+
+# To install the cmake targets on your machine 
+```sh
+sudo cmake --build . --target install 
+```

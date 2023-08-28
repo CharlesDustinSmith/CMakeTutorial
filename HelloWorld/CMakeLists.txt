@@ -176,3 +176,16 @@ else()
     message("W/o exe. compiling.")
 endif()
 add_subdirectory(tests)
+
+# Installing targets to the local machine 
+install(
+    TARGETS ${EXECUTABLE_NAME}
+    EXPORT ${LIBRARY_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin)
+
+install(
+    TARGETS ${LIBRARY_NAME}
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib)
