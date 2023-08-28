@@ -29,15 +29,22 @@ target_link_libraries(${LIBRARY_NAME} PUBLIC
 # Calling function to run compiler warnings
 if(${ENABLE_WARNINGS})
     target_set_warnings(
-        ${LIBRARY_NAME} 
-        ${ENABLE_WARNINGS} 
-        ${ENABLE_WARNINGS_AS_ERRORS}
-    )
+        TARGET
+        ${LIBRARY_NAME}
+        ENABLE
+        ${ENABLE_WARNINGS}
+        AS_ERRORS
+        ${ENABLE_WARNINGS_AS_ERRORS})
 endif()
 # Add some optimization for the compiler
-if (ENABLE_LTO)
+if(${ENABLE_LTO})
     target_enable_lto(
+        TARGET
         ${LIBRARY_NAME}
-        ${ENABLE_LTO}
-    )
+        ENABLE
+        ON)
+endif()
+# Using clang tidy
+if(${ENABLE_CLANG_TIDY})
+    add_clang_tidy_to_target(${LIBRARY_NAME})
 endif()
